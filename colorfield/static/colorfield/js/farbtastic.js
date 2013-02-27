@@ -29,7 +29,19 @@
                     'left': offset.left,
                     'opacity': 0.9
                 };
-                $('#colorpicker').css(helper_style).toggle(400);
+                $('#colorpicker').css(helper_style).show(
+                    400,
+                    function() {
+                        $('body').bind('click', function() {
+                            $('#colorpicker').hide(
+                                400,
+                                function () {
+                                    $('body').unbind('click');
+                                });
+                        });
+                }).bind('click', function(event) {
+                    event.stopPropagation();
+                });
                 $.farbtastic('#colorpicker').linkTo(field);
             }).css('background-color', field.val());
         };
@@ -356,7 +368,8 @@
             return [h, s, l];
         };
 
-        // Install mousedown handler (the others are set on the document on-demand)
+        // Install mousedown handler (the others are set on
+        // the document on-demand)
         $('*', e).mousedown(fb.mousedown);
 
         // Init color
