@@ -3,7 +3,6 @@
 import re
 
 from django import forms
-from django.contrib.admin.templatetags.admin_static import static
 from django.core.validators import RegexValidator
 from django.db import models
 from django.template.loader import render_to_string
@@ -17,10 +16,10 @@ class ColorWidget(forms.Widget):
 
     class Media:
         css = {
-            'all': (static('colorfield/css/farbtastic.css'), )
+            'all': ('colorfield/css/farbtastic.css', )
             }
-        js = (static('colorfield/js/colorpicker.js'),
-              static('colorfield/js/farbtastic.js'), )
+        js = ('colorfield/js/colorpicker.js',
+              'colorfield/js/farbtastic.js', )
 
     def render(self, name, value, attrs=None):
         return render_to_string('colorfield/color.html', locals())
